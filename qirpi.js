@@ -21,7 +21,8 @@ var Qirpi = function (el) {
             this.el = el;
 
             this.eq = function (n) {
-                return [this.el[n]];
+                this.el = [this.el[n]]
+                return this;
             }
 
 
