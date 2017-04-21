@@ -133,22 +133,22 @@ var Qirpi = function (el) {
 
             this.css = function (c, v) {
                 if (arguments.length == 2) {
+                    for (var i = 0; i < this.el.length; i++) {
+                        this.el[i].style[c] = v;
+                    }
+                    return this;
+                } else {
                     if ("object" === typeof c) {
                         for (var i = 0; i < this.el.length; i++) {
                             Object.assign(this.el[i].style, c);
                         }
                     } else {
-                        for (var i = 0; i < this.el.length; i++) {
-                            this.el[i].style[c] = v;
+                        if (this.el[0].style[c] == "") {
+                            var style = document.defaultView.getComputedStyle(this.el[0]);
+                            return style[c];
+                        } else {
+                            return this.el[0].style[c];
                         }
-                    }
-                    return this;
-                } else {
-                    if (this.el[0].style[c] == "") {
-                        var style = document.defaultView.getComputedStyle(this.el[0]);
-                        return style[c];
-                    } else {
-                        return this.el[0].style[c];
                     }
 
                 }
